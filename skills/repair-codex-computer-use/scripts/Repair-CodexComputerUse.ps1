@@ -55,14 +55,21 @@ function Copy-DirectoryContents {
         New-Item -ItemType Directory -Force -Path $Destination | Out-Null
     }
 
-    Get-ChildItem -LiteralPath $Source -Force | ForEach-Object {
-        $target = Join-Path $Destination $_.Name
-        if ((Test-Path -LiteralPath $target) -and -not $Refresh) {
-            return
+    foreach ($item in Get-ChildItem -LiteralPath $Source -Force) {
+        $target = Join-Path $Destination $item.Name
+        $targetExists = Test-Path -LiteralPath $target
+
+        if ($item.PSIsContainer -and $targetExists -and -not $Refresh) {
+            Copy-DirectoryContents -Source $item.FullName -Destination $target
+            continue
         }
 
-        if ($PSCmdlet.ShouldProcess($target, "Copy from $($_.FullName)")) {
-            Copy-Item -LiteralPath $_.FullName -Destination $target -Recurse -Force
+        if ($targetExists -and -not $Refresh) {
+            continue
+        }
+
+        if ($PSCmdlet.ShouldProcess($target, "Copy from $($item.FullName)")) {
+            Copy-Item -LiteralPath $item.FullName -Destination $target -Recurse -Force
         }
     }
 }
@@ -118,7 +125,11 @@ foreach ($relativePath in $required) {
 }
 
 if ($missing.Count -gt 0) {
-    throw "Repair completed but required files are still missing:`n$($missing -join [Environment]::NewLine)"
+    if ($WhatIfPreference) {
+        Write-Warning "Dry run did not copy files. These required files are currently missing:`n$($missing -join ([Environment]::NewLine))"
+    } else {
+        throw "Repair completed but required files are still missing:`n$($missing -join ([Environment]::NewLine))"
+    }
 }
 
 Write-Host ""

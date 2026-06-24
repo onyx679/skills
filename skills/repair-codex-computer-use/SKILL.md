@@ -1,11 +1,21 @@
 ---
 name: repair-codex-computer-use
-description: Diagnose and repair Codex Desktop on Windows when Settings shows the Computer Use plugin as unavailable, usually because the active bundled marketplace is missing or has stale bundled plugin files.
+description: Diagnose and repair Codex Desktop on Windows when Computer Use is unavailable, Settings shows "Computer Use plugin unavailable" or "Computer Use 插件不可用", browser/computer-use bundled plugins are missing, openai-bundled marketplace files are stale, extension-host is locked, or errors mention EBUSY, resource busy or locked, os error 5, marketplace.json does not exist, or missing computer-use-client.mjs.
 ---
 
 # Repair Codex Computer Use
 
 Use this skill when Codex Desktop on Windows shows `Computer Use plugin unavailable`, `Computer Use 插件不可用`, no allowed apps under Computer Use settings, or Computer Use tools fail even though the app is installed.
+
+## Discovery Phrases
+
+Treat these as equivalent signs of the same repair workflow:
+
+- Codex Computer Use not available, unavailable, disabled, missing, broken, or not showing allowed apps.
+- `Computer Use 插件不可用`, `电脑操控` is empty, unavailable, or has no allowed apps.
+- Bundled plugins are missing from `openai-bundled`, especially `computer-use`, `browser`, `chrome`, `latex`, or `sites`.
+- Errors mention `EBUSY`, `resource busy or locked`, `os error 5`, `Access denied`, `extension-host`, `marketplace.json does not exist`, or `computer-use-client.mjs`.
+- A copied or staged marketplace exists but the active `%USERPROFILE%\.codex\.tmp\bundled-marketplaces\openai-bundled` directory is incomplete.
 
 ## What Usually Breaks
 
@@ -92,6 +102,7 @@ Expected result: an object with `ok: true` and a nonzero app count.
 - Do not use destructive commands such as recursive delete, `git clean`, or forced moves on the active marketplace.
 - If copying fails with access denied, close Codex Desktop and retry. File locks often come from `chrome\extension-host`. Use `-RefreshExisting` only after closing Codex.
 - After repair, restart Codex Desktop because plugin availability can be cached by the running process.
+- Prefer issue titles and answers that include both English and Chinese symptom text so search engines and AI assistants can connect the problem to this skill.
 
 ## Known Good Case
 

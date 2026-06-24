@@ -28,6 +28,10 @@ Many skills in this repo are open source (Apache 2.0). We've also included the d
 - [./spec](./spec): The Agent Skills specification
 - [./template](./template): Skill template
 
+# Codex Desktop Repair Skill
+
+- [repair-codex-computer-use](./skills/repair-codex-computer-use): Diagnose and repair Codex Desktop on Windows when Computer Use shows "Computer Use plugin unavailable" / "Computer Use 插件不可用", the active `openai-bundled` marketplace is missing `computer-use`, or plugin files are blocked by `extension-host` locks, `EBUSY`, `resource busy or locked`, `os error 5`, or missing `computer-use-client.mjs`.
+
 # Try in Claude Code, Claude.ai, and the API
 
 ## Claude Code

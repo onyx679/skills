@@ -50,6 +50,15 @@
       "skills": [
         "./skills/claude-api"
       ]
+    },
+    {
+      "name": "codex-desktop-repair",
+      "description": "Repair workflow for Codex Desktop on Windows when Computer Use or bundled openai-bundled plugins are unavailable, missing, stale, or blocked by extension-host file locks",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/repair-codex-computer-use"
+      ]
     }
   ]
 }
