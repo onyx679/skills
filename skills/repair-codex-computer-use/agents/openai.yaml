@@ -1,0 +1,8 @@
+interface:
+  display_name: "Repair Codex Computer Use"
+  short_description: "Fix missing Computer Use bundled plugin files in Codex Desktop on Windows."
+  brand_color: "#2563EB"
+  default_prompt: "Use $repair-codex-computer-use to diagnose and repair Codex Desktop when Computer Use is unavailable."
+
+policy:
+  allow_implicit_invocation: true
